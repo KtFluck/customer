@@ -1,2 +1,5 @@
 server:
   port : 8081
+  
+customerService:
+  getUrl: mongodb://localhost:27017/test

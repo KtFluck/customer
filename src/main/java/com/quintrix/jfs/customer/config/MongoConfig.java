@@ -1,8 +1,12 @@
 package com.quintrix.jfs.customer.config;
 
+import java.time.Duration;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.web.client.RestTemplate;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
@@ -11,9 +15,16 @@ import com.mongodb.client.MongoClients;
 @Configuration
 public class MongoConfig {
 
+  @Value("${customerService.getUrl}")
+  String customerServiceGetUrl;
+
   @Bean
   public MongoClient mongo() {
-    ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/test");
+    ConnectionString connectionString = new ConnectionString(customerServiceGetUrl); // connects
+    // to
+    // mongo database
+    // path in
+    // yml
     MongoClientSettings mongoClientSettings =
         MongoClientSettings.builder().applyConnectionString(connectionString).build();
 
@@ -23,5 +34,12 @@ public class MongoConfig {
   @Bean
   public MongoTemplate mongoTemplate() throws Exception {
     return new MongoTemplate(mongo(), "test");
+  }
+
+  @Bean
+  public RestTemplate restTemplate(RestTemplateBuilder builder) {
+
+    return builder.setConnectTimeout(Duration.ofMillis(3000))
+        .setReadTimeout(Duration.ofMillis(3000)).build();
   }
 }
