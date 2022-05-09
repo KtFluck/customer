@@ -1,5 +1,7 @@
 package com.quintrix.jfs.customer;
 
+import java.util.List;
+
 public class Validations {
 
   public static void main(String[] args) {
@@ -15,4 +17,10 @@ public class Validations {
     return false;
   }
 
+  public static boolean validList(List<String> strList) {
+    if (strList != null && strList.size() > 100) {
+      return true;
+    }
+    return false;
+  }
 }

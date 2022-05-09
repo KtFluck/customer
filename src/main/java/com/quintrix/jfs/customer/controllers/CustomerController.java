@@ -1,4 +1,4 @@
-package com.quintrix.jfs.customer;
+package com.quintrix.jfs.customer.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class CustomerController {
   CustomerRepository customerRepository;
 
   @RequestMapping(method = RequestMethod.GET, value = "/customer")
-  List<Customer> getCustomer(@RequestParam(name = "name", required = false) String make) {
+  List<Customer> getCustomer(@RequestParam(name = "name", required = false) String name) {
 
     return customerRepository.findAll();
   }
