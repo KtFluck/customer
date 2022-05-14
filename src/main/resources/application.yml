@@ -3,3 +3,9 @@ server:
   
 customerService:
   getUrl: mongodb://localhost:27017/test
+  
+spring:  
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+ 
